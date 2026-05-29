@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contáctanos — PharmaNews</title>
+  <meta name="description" content="¿Tienes preguntas sobre análisis de bioprocesos? Escríbenos y te ayudamos.">
+  <style>
+    :root {
+      --dark:  #0D2137;
+      --dark2: #1A3350;
+      --dark3: #0F2840;
+      --teal:  #00B4D8;
+      --white: #FFFFFF;
+      --gray:  #A8C0D0;
+      --green: #2EC4B6;
+      --danger:#E63946;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 10px 20px;
+      font-size: 12px;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--gray); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--teal); }
+    .breadcrumb .sep { color: rgba(0,180,216,0.4); }
+    .breadcrumb .current { color: var(--teal); font-weight: 600; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #0D2137 0%, #0A3050 60%, #05192A 100%);
+      border-bottom: 2px solid var(--teal);
+      padding: 48px 20px 40px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(0,180,216,0.12);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .header h1 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .header h1 span { color: var(--teal); }
+    .header p {
+      color: var(--gray);
+      font-size: 16px;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px 20px;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--dark2);
+      border: 1px solid rgba(0,180,216,0.25);
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .form-group { margin-bottom: 22px; }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    label .req { color: var(--danger); margin-left: 3px; }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--dark3);
+      border: 1px solid rgba(0,180,216,0.2);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 15px;
+      font-family: inherit;
+      padding: 13px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(168,192,208,0.45); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,180,216,0.15);
+    }
+    select option { background: var(--dark2); color: var(--white); }
+    textarea { resize: vertical; min-height: 110px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(0,180,216,0.1);
+      margin: 28px 0;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--teal);
+      color: var(--dark);
+      font-weight: 800;
+      font-size: 16px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-btn:hover { background: #00D4FF; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,180,216,0.3); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .privacy-note {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(168,192,208,0.5);
+      margin-top: 14px;
+    }
+    .privacy-note a { color: var(--teal); text-decoration: none; }
+
+    /* SUCCESS STATE */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-box .check { font-size: 56px; margin-bottom: 16px; }
+    .success-box h2 { color: var(--green); font-size: 24px; margin-bottom: 10px; }
+    .success-box p { color: var(--gray); font-size: 15px; line-height: 1.6; }
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(0,180,216,0.1);
+      padding: 24px 20px;
+      text-align: center;
+      color: rgba(168,192,208,0.5);
+      font-size: 12px;
+    }
+    footer strong { color: var(--teal); }
+  </style>
+</head>
+<body>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+  <a href="index.html">PharmaNews</a>
+  <span class="sep">›</span>
+  <a href="index.html">Prompts</a>
+  <span class="sep">›</span>
+  <a href="index.html">Farmacéutica</a>
+  <span class="sep">›</span>
+  <a href="index.html">Biorreactores</a>
+  <span class="sep">›</span>
+  <a href="index.html">Prompt Maestro 01</a>
+  <span class="sep">›</span>
+  <span class="current">Contacto</span>
+</nav>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="badge">🧬 PharmaNews · Contáctanos</div>
+  <h1>¿Cómo podemos<br><span>ayudarte?</span></h1>
+  <p>Déjanos tus datos y tu pregunta — te respondemos directamente a tu correo.</p>
+</header>
+
+<!-- FORM -->
+<main>
+  <div class="form-card">
+
+    <!-- FORMULARIO -->
+    <div id="formContainer">
+      <!--
+        INSTRUCCIÓN PARA ACTIVAR:
+        1. Ve a https://formspree.io → Create Account (gratis)
+        2. New Form → copia tu endpoint (ej: https://formspree.io/f/xxxxxxxx)
+        3. Reemplaza "TU_ENDPOINT_AQUI" en la línea de abajo con tu endpoint
+      -->
+      <form id="contactForm" action="https://formspree.io/f/mreddeye" method="POST">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+          </div>
+          <div class="form-group">
+            <label for="empresa">Empresa / Institución</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Donde trabajas o estudias">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="perfil">¿Cuál es tu perfil?</label>
+          <select id="perfil" name="perfil">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="Estudiante universitario">Estudiante universitario</option>
+            <option value="Profesional de la industria">Profesional de la industria farmacéutica</option>
+            <option value="Investigador / Academia">Investigador / Academia</option>
+            <option value="Directivo / Gerente">Directivo / Gerente</option>
+            <option value="Consultor">Consultor</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <hr class="divider">
+
+        <div class="form-group">
+          <label for="pregunta">Tu pregunta o comentario <span class="req">*</span></label>
+          <textarea id="pregunta" name="pregunta" placeholder="Escribe aquí tu pregunta, duda o tema de interés..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="ayuda">¿Cómo podemos ayudarte?</label>
+          <select id="ayuda" name="ayuda">
+            <option value="" disabled selected>¿Qué tipo de ayuda necesitas?</option>
+            <option value="Análisis de datos de biorreactor">Análisis de datos de biorreactor</option>
+            <option value="Capacitación en uso de IA">Capacitación en uso de IA para procesos</option>
+            <option value="Consultoría de proceso">Consultoría de proceso farmacéutico</option>
+            <option value="Más información sobre Prompt Maestro">Más información sobre Prompt Maestro</option>
+            <option value="Colaboración académica">Colaboración académica</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <!-- Campos ocultos -->
+        <input type="hidden" name="fuente" value="QR - Prompt Maestro 01">
+        <input type="hidden" name="_subject" value="🧬 Nueva consulta desde PharmaNews">
+        <input type="hidden" name="_replyto" id="replyto" value="">
+        <input type="hidden" name="_autoresponse" value="¡Hola! Gracias por contactarnos 🧬
+
+Recibimos tu mensaje y nos pondremos en contacto contigo muy pronto.
+
+En PharmaNews nos especializamos en análisis de bioprocesos, inteligencia artificial aplicada a la industria farmacéutica y capacitación profesional.
+
+Mientras tanto, visítanos en:
+🌐 www.pharmanews.com
+📋 Prompt Maestro 01: https://jeluani127.github.io/prompt01
+
+¡Gracias por tu interés — pronto hablamos!
+
+Equipo PharmaNews">
+
+        <button type="submit" class="submit-btn">
+          <span>📨</span> Enviar mensaje
+        </button>
+
+        <p class="privacy-note">
+          Tus datos son confidenciales y solo se usan para responderte.<br>
+          Página: <a href="https://jeluani127.github.io/prompt01">jeluani127.github.io/prompt01</a>
+        </p>
+
+      </form>
+    </div>
+
+    <!-- MENSAJE DE ÉXITO -->
+    <div class="success-box" id="successBox">
+      <div class="check">✅</div>
+      <h2>¡Mensaje enviado!</h2>
+      <p>Gracias por escribirnos. Revisaremos tu consulta y<br>te responderemos pronto a tu correo.</p>
+      <a href="index.html" class="back-link">← Volver a Prompt Maestro 01</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p><strong>PharmaNews</strong> › Prompts › Farmacéutica › Biorreactores › Prompt Maestro 01</p>
+  <p style="margin-top:6px;">© 2026 · <a href="https://jeluani127.github.io/prompt01" style="color:var(--teal);text-decoration:none;">jeluani127.github.io/prompt01</a></p>
+</footer>
+
+<script>
+  // Mostrar mensaje de éxito al enviar (sin recargar la página)
+  // Copiar el email al campo _replyto antes de enviar
+  document.getElementById('email').addEventListener('input', function() {
+    document.getElementById('replyto').value = this.value;
+  });
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = form.action;
+
+    // Si el endpoint no está configurado aún, mostrar aviso
+    if (action.includes('TU_ENDPOINT_AQUI')) {
+      alert('⚠️ Configura tu endpoint de Formspree primero.\n\nVe a formspree.io, crea un formulario gratis y reemplaza TU_ENDPOINT_AQUI en el código.');
+      return;
+    }
+
+    try {
+      const response = await fetch(action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        document.getElementById('formContainer').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+      } else {
+        alert('Hubo un error al enviar. Intenta de nuevo o escríbenos directamente.');
+      }
+    } catch (err) {
+      alert('Sin conexión. Verifica tu internet e intenta de nuevo.');
+    }
+  });
+</script>
+</body>
+</html>
